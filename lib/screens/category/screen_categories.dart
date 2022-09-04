@@ -5,10 +5,6 @@ class ScreenCategories extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: Text('screen Categories'),
-      ),
-    );
+    return Text('screen Categories');
   }
 }

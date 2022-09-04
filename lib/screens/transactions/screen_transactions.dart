@@ -5,10 +5,6 @@ class ScreenTransactions extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: Text('screen transaction'),
-      ),
-    );
+    return Text('screen transaction');
   }
 }
