@@ -24,6 +24,20 @@ class ScreenHome extends StatelessWidget {
               return _pages[updatedIndex];
             }),
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          if (selectedIndexNotifier.value == 0) {
+            print(
+              Text('add transactions'),
+            );
+          } else {
+            print(
+              Text('add categories'),
+            );
+          }
+        },
+        child: Icon(Icons.add),
+      ),
     );
   }
 }

@@ -5,6 +5,6 @@ class ScreenTransactions extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text('screen transaction');
+    return Center(child: Text('screen transaction'));
   }
 }

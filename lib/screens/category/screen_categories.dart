@@ -5,6 +5,8 @@ class ScreenCategories extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text('screen Categories');
+    return Center(
+      child: Text('screen Categories'),
+    );
   }
 }
