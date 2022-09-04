@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:money_manager_flutter/screens/category/expense_list_category.dart';
+import 'package:money_manager_flutter/screens/category/income_list_category.dart';
 
 class ScreenCategories extends StatefulWidget {
   const ScreenCategories({super.key});
@@ -17,7 +19,7 @@ class _ScreenCategoriesState extends State<ScreenCategories>
       length: 2,
       vsync: this,
     );
-    // TODO: implement initState
+
     super.initState();
   }
 
@@ -29,7 +31,7 @@ class _ScreenCategoriesState extends State<ScreenCategories>
           labelColor: Colors.black,
           unselectedLabelColor: Colors.grey,
           controller: _tabController,
-          tabs: [
+          tabs: const [
             Tab(
               text: 'INCOME',
             ),
@@ -37,6 +39,15 @@ class _ScreenCategoriesState extends State<ScreenCategories>
               text: 'EXPENSE',
             ),
           ],
+        ),
+        Expanded(
+          child: TabBarView(
+            controller: _tabController,
+            children: const [
+              IncomeListCategory(),
+              ExpenseListCategory(),
+            ],
+          ),
         )
       ],
     );
