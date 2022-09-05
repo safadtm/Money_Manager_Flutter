@@ -37,7 +37,7 @@ Future<void> showCategoryAddPopup(BuildContext context) async {
   );
 }
 
-class RadioButton extends StatelessWidget {
+class RadioButton extends StatefulWidget {
   final String title;
   final CategoryType type;
 
@@ -48,14 +48,24 @@ class RadioButton extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  State<RadioButton> createState() => _RadioButtonState();
+}
+
+class _RadioButtonState extends State<RadioButton> {
+  CategoryType? _type;
+  @override
   Widget build(BuildContext context) {
     return Row(
       children: [
         Radio<CategoryType>(
-            value: type,
-            groupValue: CategoryType.income,
-            onChanged: (value) {}),
-        Text(title),
+            value: widget.type,
+            groupValue: _type,
+            onChanged: (value) {
+              setState(() {
+                _type = value;
+              });
+            }),
+        Text(widget.title),
       ],
     );
   }
