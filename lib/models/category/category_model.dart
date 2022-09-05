@@ -4,11 +4,13 @@ enum CategoryType {
 }
 
 class CategoryModel {
+  final String id;
   final String name;
-  final bool isDeleted;
   final CategoryType;
+  final bool isDeleted;
 
   CategoryModel({
+    required this.id,
     required this.name,
     required this.CategoryType,
     this.isDeleted = false,
