@@ -20,7 +20,9 @@ class ExpenseListCategory extends StatelessWidget {
                   trailing: IconButton(
                     color: Colors.red,
                     hoverColor: Colors.red,
-                    onPressed: () {},
+                    onPressed: () {
+                      CategoryDB.instance.deleteCategory(category.id);
+                    },
                     icon: Icon(
                       Icons.delete,
                     ),
