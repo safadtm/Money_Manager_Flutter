@@ -19,7 +19,7 @@ class CategoryModel {
   final String name;
 
   @HiveField(2)
-  final CategoryType;
+  final categorytype;
 
   @HiveField(3)
   final bool isDeleted;
@@ -27,7 +27,7 @@ class CategoryModel {
   CategoryModel({
     required this.id,
     required this.name,
-    required this.CategoryType,
+    required this.categorytype,
     this.isDeleted = false,
   });
 }

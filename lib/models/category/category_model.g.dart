@@ -19,7 +19,7 @@ class CategoryModelAdapter extends TypeAdapter<CategoryModel> {
     return CategoryModel(
       id: fields[0] as String,
       name: fields[1] as String,
-      CategoryType: fields[2] as dynamic,
+      categorytype: fields[2] as dynamic,
       isDeleted: fields[3] as bool,
     );
   }
@@ -33,7 +33,7 @@ class CategoryModelAdapter extends TypeAdapter<CategoryModel> {
       ..writeByte(1)
       ..write(obj.name)
       ..writeByte(2)
-      ..write(obj.CategoryType)
+      ..write(obj.categorytype)
       ..writeByte(3)
       ..write(obj.isDeleted);
   }
