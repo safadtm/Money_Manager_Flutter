@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:money_manager_flutter/models/category/category_model.dart';
 
-ValueNotifier<CategoryType> selectedCategory =
+ValueNotifier<CategoryType> selectedCategoryNotifier =
     ValueNotifier(CategoryType.income);
 
 Future<void> showCategoryAddPopup(BuildContext context) async {
@@ -31,7 +31,7 @@ Future<void> showCategoryAddPopup(BuildContext context) async {
             padding: const EdgeInsets.all(8.0),
             child: ElevatedButton(
               onPressed: () {},
-              child: Text('Add'),
+              child: const Text('Add'),
             ),
           )
         ],
@@ -40,7 +40,7 @@ Future<void> showCategoryAddPopup(BuildContext context) async {
   );
 }
 
-class RadioButton extends StatefulWidget {
+class RadioButton extends StatelessWidget {
   final String title;
   final CategoryType type;
 
@@ -51,24 +51,24 @@ class RadioButton extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<RadioButton> createState() => _RadioButtonState();
-}
-
-class _RadioButtonState extends State<RadioButton> {
-  CategoryType? _type;
-  @override
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Radio<CategoryType>(
-            value: widget.type,
-            groupValue: _type,
-            onChanged: (value) {
-              setState(() {
-                _type = value;
-              });
+        ValueListenableBuilder(
+            valueListenable: selectedCategoryNotifier,
+            builder: (BuildContext ctx, CategoryType newCategory, Widget? _) {
+              return Radio<CategoryType>(
+                  value: type,
+                  groupValue: newCategory,
+                  onChanged: (value) {
+                    if (value == null) {
+                      return;
+                    }
+                    selectedCategoryNotifier.value = value;
+                    selectedCategoryNotifier.notifyListeners();
+                  });
             }),
-        Text(widget.title),
+        Text(title),
       ],
     );
   }
