@@ -10,6 +10,13 @@ abstract class CategoryDBfunctions {
 }
 
 class CategoryDB implements CategoryDBfunctions {
+  CategoryDB._internal();
+
+  static CategoryDB instance = CategoryDB._internal();
+  factory CategoryDB() {
+    return instance;
+  }
+
   ValueNotifier<List<CategoryModel>> incomeListListener = ValueNotifier([]);
   ValueNotifier<List<CategoryModel>> expenseListListener = ValueNotifier([]);
 
