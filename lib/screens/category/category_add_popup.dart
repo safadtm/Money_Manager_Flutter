@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:money_manager_flutter/models/category/category_model.dart';
 
+ValueNotifier<CategoryType> selectedCategory =
+    ValueNotifier(CategoryType.income);
+
 Future<void> showCategoryAddPopup(BuildContext context) async {
   showDialog(
     context: context,
