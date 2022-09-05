@@ -2,10 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:money_manager_flutter/db/category/category_db.dart';
 import 'package:money_manager_flutter/models/category/category_model.dart';
 
-class ScreenAddTransaction extends StatelessWidget {
+class ScreenAddTransaction extends StatefulWidget {
   static const routeName = 'add-transaction';
   const ScreenAddTransaction({super.key});
 
+  @override
+  State<ScreenAddTransaction> createState() => _ScreenAddTransactionState();
+}
+
+class _ScreenAddTransactionState extends State<ScreenAddTransaction> {
+  DateTime? _selectedDate;
+  CategoryType? _selectedCategoryType;
+  CategoryModel? _selectedCategoryModel;
 /*
 Purpose
 Date
@@ -13,7 +21,6 @@ Amount
 Income/Expense
 CategoryType
 */
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,10 +42,12 @@ CategoryType
               hintText: 'Amount',
             ),
           ),
-          //Date
+
+          //Calender
+
           TextButton.icon(
-            onPressed: () {
-              showDatePicker(
+            onPressed: () async {
+              final _selectedDateTemp = await showDatePicker(
                 context: context,
                 initialDate: DateTime.now(),
                 firstDate: DateTime.now().subtract(
@@ -46,9 +55,19 @@ CategoryType
                 ),
                 lastDate: DateTime.now(),
               );
+              if (_selectedDateTemp == null) {
+                return;
+              } else {
+                print(_selectedDateTemp.toString());
+                setState(() {
+                  _selectedDate = _selectedDateTemp;
+                });
+              }
             },
             icon: const Icon(Icons.calendar_today),
-            label: Text('Select Date'),
+            label: Text(_selectedDate == null
+                ? 'Select Date'
+                : _selectedDate.toString()),
           ),
           //income&expense
           Row(
@@ -66,7 +85,7 @@ CategoryType
                 children: [
                   Radio(
                       value: CategoryType.income,
-                      groupValue: CategoryType.income,
+                      groupValue: CategoryType.expense,
                       onChanged: (newValue) {}),
                   const Text('Expense')
                 ],
