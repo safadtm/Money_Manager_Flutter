@@ -37,7 +37,16 @@ CategoryType
           ),
           //Date
           TextButton.icon(
-            onPressed: () {},
+            onPressed: () {
+              showDatePicker(
+                context: context,
+                initialDate: DateTime.now(),
+                firstDate: DateTime.now().subtract(
+                  const Duration(days: 30),
+                ),
+                lastDate: DateTime.now(),
+              );
+            },
             icon: const Icon(Icons.calendar_today),
             label: Text('Select Date'),
           ),
