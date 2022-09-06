@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:money_manager_flutter/db/category/category_db.dart';
 import 'package:money_manager_flutter/models/category/category_model.dart';
+import 'package:money_manager_flutter/models/transaction/transaction_model.dart';
 
 class ScreenAddTransaction extends StatefulWidget {
   static const routeName = 'add-transaction';
@@ -15,6 +16,9 @@ class _ScreenAddTransactionState extends State<ScreenAddTransaction> {
   CategoryType? _selectedCategoryType;
   CategoryModel? _selectedCategoryModel;
   String? _categoryID;
+
+  final _purposeTextController = TextEditingController();
+  final _amountTextController = TextEditingController();
 
   @override
   void initState() {
@@ -38,6 +42,7 @@ CategoryType
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           //purpose
           TextFormField(
+            controller: _purposeTextController,
             keyboardType: TextInputType.text,
             decoration: const InputDecoration(
               hintText: 'Purpose',
@@ -45,6 +50,7 @@ CategoryType
           ),
           //Amount
           TextFormField(
+            controller: _amountTextController,
             keyboardType: TextInputType.number,
             decoration: const InputDecoration(
               hintText: 'Amount',
@@ -123,11 +129,14 @@ CategoryType
                 return DropdownMenuItem(
                   value: e.id,
                   child: Text(e.name),
+                  onTap: () {
+                    _selectedCategoryModel = e;
+                  },
                 );
               },
             ).toList(),
             onChanged: (selectedValue) {
-              print(selectedValue);
+              //   print(selectedValue);
               setState(() {
                 _categoryID = selectedValue as String;
               });
@@ -136,10 +145,38 @@ CategoryType
           //submit
           ElevatedButton(
             onPressed: () {},
-            child: Text('Submit'),
+            child: const Text('Submit'),
           )
         ]),
       )),
     );
+  }
+
+  Future<void> submitTransaction() async {
+    final _purposeText = _purposeTextController.text;
+    final _amountText = _amountTextController.text;
+    if (_purposeText.isEmpty) {
+      return;
+    }
+    if (_amountText.isEmpty) {
+      return;
+    }
+
+    if (_selectedDate == null) {
+      return;
+    }
+    if (_selectedCategoryModel == null) {
+      return;
+    }
+    final _parsedAmount = double.tryParse(_amountText);
+    if (_parsedAmount == null) {
+      return;
+    }
+    TransactionModel(
+        purpose: _purposeText,
+        amount: _parsedAmount,
+        date: _selectedDate!,
+        type: _selectedCategoryType!,
+        category: _selectedCategoryModel!);
   }
 }
