@@ -26,6 +26,8 @@ class _ScreenCategoriesState extends State<ScreenCategories>
 
   @override
   Widget build(BuildContext context) {
+    CategoryDB().getCategories();
+    CategoryDB.instance.refreshUI();
     return Column(
       children: [
         TabBar(
