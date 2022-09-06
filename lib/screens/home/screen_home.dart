@@ -5,6 +5,9 @@ import 'package:money_manager_flutter/screens/category/screen_categories.dart';
 import 'package:money_manager_flutter/screens/home/widgets/bottom_navigationbar.dart';
 import 'package:money_manager_flutter/screens/transactions/screen_transactions.dart';
 
+import '../../db/category/category_db.dart';
+import '../../db/transaction/transaction_db.dart';
+
 class ScreenHome extends StatelessWidget {
   const ScreenHome({super.key});
 
@@ -17,6 +20,11 @@ class ScreenHome extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    CategoryDB().getCategories();
+    TransactionDB.instance.getAllTransactions();
+    TransactionDB.instance.refresh();
+    CategoryDB.instance.refreshUI();
+
     return Scaffold(
       backgroundColor: Colors.grey[100],
       appBar: AppBar(

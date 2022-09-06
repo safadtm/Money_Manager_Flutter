@@ -10,9 +10,10 @@ class ScreenTransactions extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    TransactionDB.instance.refresh();
-    CategoryDB.instance.refreshUI();
-
+    // TransactionDB.instance.refresh();
+    // CategoryDB.instance.refreshUI();
+    CategoryDB().getCategories();
+    TransactionDB.instance.getAllTransactions();
     return ValueListenableBuilder(
         valueListenable: TransactionDB.instance.transactionListNotifier,
         builder: (BuildContext ctx, List<TransactionModel> newList, Widget? _) {

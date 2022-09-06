@@ -145,7 +145,9 @@ CategoryType
           ),
           //submit
           ElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              submitTransaction();
+            },
             child: const Text('Submit'),
           )
         ]),
