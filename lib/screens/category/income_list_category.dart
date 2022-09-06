@@ -9,7 +9,7 @@ class IncomeListCategory extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     CategoryDB().getCategories();
-
+    CategoryDB.instance.refreshUI();
     return ValueListenableBuilder(
         valueListenable: CategoryDB().incomeListListener,
         builder: (BuildContext ctx, List<CategoryModel> newList, Widget? _) {
@@ -24,6 +24,7 @@ class IncomeListCategory extends StatelessWidget {
                     hoverColor: Colors.red,
                     onPressed: () {
                       CategoryDB.instance.deleteCategory(category.id);
+                      CategoryDB().incomeListListener.notifyListeners();
                     },
                     icon: Icon(
                       Icons.delete,

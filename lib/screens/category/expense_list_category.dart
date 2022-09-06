@@ -24,6 +24,7 @@ class ExpenseListCategory extends StatelessWidget {
                     hoverColor: Colors.red,
                     onPressed: () {
                       CategoryDB.instance.deleteCategory(category.id);
+                      CategoryDB().expenseListListener.notifyListeners();
                       CategoryDB.instance.refreshUI();
                     },
                     icon: Icon(

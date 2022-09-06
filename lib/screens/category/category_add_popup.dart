@@ -47,6 +47,8 @@ Future<void> showCategoryAddPopup(BuildContext context) async {
                     categorytype: _type);
 
                 CategoryDB().insertCategory(_category);
+                CategoryDB().incomeListListener.notifyListeners();
+                CategoryDB().expenseListListener.notifyListeners();
                 CategoryDB.instance.refreshUI();
                 Navigator.of(context).pop();
               },
