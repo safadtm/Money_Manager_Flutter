@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:money_manager_flutter/db/category/category_db.dart';
 import 'package:money_manager_flutter/db/transaction/transaction_db.dart';
 import 'package:money_manager_flutter/models/category/category_model.dart';
 import 'package:money_manager_flutter/models/transaction/transaction_model.dart';
@@ -9,6 +11,7 @@ class ScreenTransactions extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     TransactionDB.instance.refresh();
+    CategoryDB.instance.refreshUI();
 
     return ValueListenableBuilder(
         valueListenable: TransactionDB.instance.transactionListNotifier,
@@ -44,6 +47,9 @@ class ScreenTransactions extends StatelessWidget {
   }
 
   String parseDate(DateTime date) {
-    return '${date.day}\n${date.month}';
+    final _date = DateFormat.MMMd().format(date);
+    final _splitDate = _date.split(' ');
+    return '${_splitDate.last}\n${_splitDate.first}';
+    // return '${date.day}\n${date.month}';
   }
 }
