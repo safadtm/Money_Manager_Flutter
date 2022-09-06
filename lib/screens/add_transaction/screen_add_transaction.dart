@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:money_manager_flutter/db/category/category_db.dart';
+import 'package:money_manager_flutter/db/transaction/transaction_db.dart';
 import 'package:money_manager_flutter/models/category/category_model.dart';
 import 'package:money_manager_flutter/models/transaction/transaction_model.dart';
 
@@ -172,11 +173,13 @@ CategoryType
     if (_parsedAmount == null) {
       return;
     }
-    TransactionModel(
+    final _model = TransactionModel(
         purpose: _purposeText,
         amount: _parsedAmount,
         date: _selectedDate!,
         type: _selectedCategoryType!,
         category: _selectedCategoryModel!);
+    TransactionDB.instance.addTransaction(_model);
+    Navigator.of(context).pop();
   }
 }
