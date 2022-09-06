@@ -14,6 +14,14 @@ class _ScreenAddTransactionState extends State<ScreenAddTransaction> {
   DateTime? _selectedDate;
   CategoryType? _selectedCategoryType;
   CategoryModel? _selectedCategoryModel;
+  String? _categoryID;
+
+  @override
+  void initState() {
+    _selectedCategoryType = CategoryType.income;
+    super.initState();
+  }
+
 /*
 Purpose
 Date
@@ -76,17 +84,27 @@ CategoryType
                 children: [
                   Radio(
                       value: CategoryType.income,
-                      groupValue: CategoryType.income,
-                      onChanged: (newValue) {}),
+                      groupValue: _selectedCategoryType,
+                      onChanged: (newValue) {
+                        setState(() {
+                          _selectedCategoryType = CategoryType.income;
+                          _categoryID = null;
+                        });
+                      }),
                   const Text('Income')
                 ],
               ),
               Row(
                 children: [
                   Radio(
-                      value: CategoryType.income,
-                      groupValue: CategoryType.expense,
-                      onChanged: (newValue) {}),
+                      value: CategoryType.expense,
+                      groupValue: _selectedCategoryType,
+                      onChanged: (newValue) {
+                        setState(() {
+                          _selectedCategoryType = CategoryType.expense;
+                          _categoryID = null;
+                        });
+                      }),
                   const Text('Expense')
                 ],
               ),
@@ -95,7 +113,12 @@ CategoryType
           //categorytypevalue
           DropdownButton(
             hint: const Text('Select Category'),
-            items: CategoryDB.instance.incomeListListener.value.map(
+            value: _categoryID,
+            items: (_selectedCategoryType == CategoryType.income
+                    ? CategoryDB().incomeListListener
+                    : CategoryDB().expenseListListener)
+                .value
+                .map(
               (e) {
                 return DropdownMenuItem(
                   value: e.id,
@@ -105,6 +128,9 @@ CategoryType
             ).toList(),
             onChanged: (selectedValue) {
               print(selectedValue);
+              setState(() {
+                _categoryID = selectedValue as String;
+              });
             },
           ),
           //submit
