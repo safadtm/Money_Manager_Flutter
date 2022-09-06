@@ -29,6 +29,7 @@ class ScreenTransactions extends StatelessWidget {
                     motion: ScrollMotion(),
                     children: [
                       SlidableAction(
+                        backgroundColor: Colors.red,
                         onPressed: (ctx) {
                           TransactionDB.instance.deleteTransaction(_value.id!);
                         },
